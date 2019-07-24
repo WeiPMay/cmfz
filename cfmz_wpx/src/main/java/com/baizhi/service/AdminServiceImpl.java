@@ -1,5 +1,6 @@
 package com.baizhi.service;
 
+import com.baizhi.annotation.AopAnnotation;
 import com.baizhi.dao.AdminDao;
 import com.baizhi.entity.Admin;
 import com.baizhi.service.AdminService;
@@ -23,6 +24,7 @@ public class AdminServiceImpl implements AdminService {
     private HttpSession httpSession;
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     @Override
+    @AopAnnotation
     public List<Admin> queryAll() {
         List<Admin> admins = adminDao.selectAll();
         return admins;
@@ -45,5 +47,16 @@ public class AdminServiceImpl implements AdminService {
             map.put("message","密码错误");
         }
         return map;
+    }
+
+    @Override
+    public Admin queryOne(String username) {
+        Admin login = adminDao.login(username);
+        return login;
+    }
+
+    @Override
+    public void addAdmin(Admin admin) {
+        adminDao.insertAdmin(admin);
     }
 }

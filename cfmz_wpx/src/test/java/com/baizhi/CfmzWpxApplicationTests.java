@@ -8,8 +8,8 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.baizhi.dao.UserDao;
-import com.baizhi.entity.Month;
-import com.baizhi.entity.User;
+import com.baizhi.entity.Admin;
+import com.baizhi.service.AdminService;
 import com.baizhi.service.UserService;
 import com.baizhi.util.MD5Utils;
 import io.goeasy.GoEasy;
@@ -20,8 +20,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 import java.util.UUID;
 
 @RunWith(SpringRunner.class)
@@ -29,28 +27,23 @@ import java.util.UUID;
 
 public class CfmzWpxApplicationTests {
     @Autowired
-    private UserDao userDao;
+    private AdminService adminService;
     @Test
     public void contextLoads() {
-        String s = UUID.randomUUID().toString();
-        String substring = s.substring(s.length() - 4, s.length());
-        DefaultProfile profile=DefaultProfile.getProfile("cn-hangzhou", "LTAIlzYGSPoAnKiO", "fbiZsShEHXFxWc0I9PCELWRpoZRILH");
-        IAcsClient client=new DefaultAcsClient(profile);
-        CommonRequest request = new CommonRequest();
-        request.setMethod(MethodType.POST);
-        request.setDomain("dysmsapi.aliyuncs.com");
-        request.setVersion("2017-05-25");
-        request.setAction("SendSms");
-        request.putQueryParameter("RegionId", "cn-hangzhou");
-        request.putQueryParameter("PhoneNumbers", "18831434768");
-        request.putQueryParameter("SignName", "魏may");
-        request.putQueryParameter("TemplateCode", "SMS_171111511");
-        request.putQueryParameter("TemplateParam", "{code:8888}");
-        try {
-            CommonResponse response = client.getCommonResponse(request);
-            System.out.println(response.getData());
-        } catch (ClientException e) {
-            e.printStackTrace();
+        adminService.addAdmin(new Admin(UUID.randomUUID().toString(),"123","123456"));
+
+    }
+    @Test
+    public void test2(){
+        Admin admin = adminService.queryOne("1");
+        System.out.println(admin);
+    }
+    @Test
+    public void test1(){
+        List<Admin> admins = adminService.queryAll();
+        for (Admin admin : admins) {
+            System.out.println(admin);
+
         }
     }
 
