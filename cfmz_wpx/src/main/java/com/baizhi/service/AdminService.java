@@ -8,5 +8,6 @@ import java.util.Map;
 public interface AdminService {
     List<Admin> queryAll();
     Map<String,Object> login(Admin admin);
-
+    Admin queryOne(String username);
+    void addAdmin(Admin admin);
 }

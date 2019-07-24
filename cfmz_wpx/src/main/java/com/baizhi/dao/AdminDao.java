@@ -8,4 +8,5 @@ public interface AdminDao {
     List<Admin> selectAll();
 
     Admin login(String username);
+    void insertAdmin(Admin admin);
 }
