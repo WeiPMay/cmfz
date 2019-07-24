@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.ArticleDao">
+    <select id="selectByPage" resultType="Article">
+        select article_id id,guru_id guruId,title,content,publish_time publishTime from c_article
+        limit ${(curPage-1)*pageSize},#{pageSize}
+    </select>
+
+    <select id="selectTotalCount" resultType="java.lang.Integer">
+        select count(*) from c_article
+    </select>
+    <insert id="insert">
+        insert into c_article(article_id,guru_id,title,content,publish_time) values(#{id},#{guruId},#{title},#{content},#{publishTime})
+    </insert>
+
+    <update id="update">
+        update c_article set title=#{title},content=#{content},publish_time=#{publishTime} where article_id=#{id}
+    </update>
+    <delete id="delete" parameterType="java.lang.String">
+        delete from c_article where article_id=#{id}
+    </delete>
+
+    <select id="queryOneById" resultType="Article">
+        select guru_id guruId,title,content,publish_time publishTime from c_article
+        where article_id=#{id}
+    </select>
+
+</mapper>

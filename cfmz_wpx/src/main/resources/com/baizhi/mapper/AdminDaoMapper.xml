@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AdminDao">
+    <select id="selectAll" resultType="admin">
+        select admin_id id,username,password from c_admin
+    </select>
+    <select id="login" resultType="admin">
+        select admin_id,username,password from c_admin where username=#{username}
+    </select>
+
+</mapper>

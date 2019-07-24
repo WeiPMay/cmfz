@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.ChapterDao">
+    <select id="selectByPage" resultType="Chapter">
+        select chapter_id id,c_chapter.album_id albumId,c_chapter.title title,size,downPath,upload_time uploadTime from c_chapter
+        left join c_album on c_chapter.album_id=c_album.album_id where c_chapter.album_id=#{albumId}
+        limit ${(curPage-1)*pageSize},#{pageSize}
+    </select>
+
+    <select id="selectTotalCount" resultType="java.lang.Integer">
+        select count(*) from c_chapter
+    </select>
+    <insert id="insert">
+        insert into c_chapter(chapter_id,album_id,title,size,downPath,upload_time) values(#{id},#{albumId},#{title},#{size},#{downPath},#{uploadTime})
+
+    </insert>
+
+    <update id="update">
+        update c_chapter set title=#{title},size=#{size},downPath=#{downPath},upload_time=#{uploadTime} where chapter_id=#{id}
+    </update>
+    <delete id="delete" parameterType="java.lang.String">
+        delete from c_chapter where chapter_id=#{id}
+    </delete>
+    <update id="updatePath">
+        update c_chapter set downPath=#{downPath},size=#{size} where chapter_id = #{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.CarouselDao">
+
+    <select id="selectAll" resultType="Carousel">
+        select carousel_id id,title,imgpath,status,create_time createTime from c_carousel where status=0
+    </select>
+
+    <insert id="insertimg">
+        insert into c_carousel values(#{id},#{title},#{imgpath},#{status},#{createTime})
+    </insert>
+
+    <delete id="deleteimg" parameterType="java.lang.String">
+        delete from c_carousel where carousel_id=#{id}
+    </delete>
+    <update id="updateImgPath">
+        update c_carousel set imgPath=#{imgpath} where carousel_id = #{id}
+    </update>
+    <select id="selectTotalCount" resultType="java.lang.Integer">
+        select count(*) from c_carousel
+    </select>
+
+    <select id="selectByPage" resultType="Carousel">
+        select carousel_id id,title,imgpath,status,create_time createTime from c_carousel
+        where status=0
+        limit ${(curPage-1)*pageSize},#{pageSize}
+    </select>
+    <update id="update">
+        update c_carousel set title=#{title},imgPath=#{imgpath},status=#{status},create_time=#{createTime} where carousel_id = #{id}
+    </update>
+</mapper>
