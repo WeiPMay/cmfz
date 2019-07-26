@@ -9,4 +9,6 @@ public interface AdminDao {
 
     Admin login(String username);
     void insertAdmin(Admin admin);
+
+    Admin selectAdmin(String username);
 }

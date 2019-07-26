@@ -30,7 +30,7 @@ public class CfmzWpxApplicationTests {
     private AdminService adminService;
     @Test
     public void contextLoads() {
-        adminService.addAdmin(new Admin(UUID.randomUUID().toString(),"123","123456"));
+        //adminService.addAdmin(new Admin(UUID.randomUUID().toString(),"123","123456"));
 
     }
     @Test
