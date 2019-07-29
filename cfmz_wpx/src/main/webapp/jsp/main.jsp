@@ -1,4 +1,5 @@
 <%@page isELIgnored="false" pageEncoding="UTF-8" contentType="text/html; UTF-8" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!doctype html>
 
 <html lang="en">
@@ -43,7 +44,7 @@
                 <ul class="nav navbar-nav">
                     <li>
                         <a  href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            欢迎：${sessionScope.admin.username}
+                            欢迎：<span><font color="red"><shiro:principal></shiro:principal></font></span>
                             <span class="glyphicon glyphicon-user"/>
                         </a>
                     </li>
@@ -61,7 +62,8 @@
     <div class="container-fluid" id="myCarousel">
         <div class="col-lg-2">
             <div class="panel-group" id="panelgroup1">
-                        <div class="panel panel-default">
+                <shiro:hasPermission name="carousel:add">
+                <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title" data-target="#collapse1" data-toggle="collapse" data-parent="#panelgroup1">
                                     <a href="#">轮播图</a>
@@ -70,11 +72,13 @@
                             <div id="collapse1" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ul class="nav nav-pills nav-stacked">
-                                        <li role="presentation"><a href="javascript:$('#contentDiv').load('carousel.jsp')">轮播图管理</a></li>
+                                        <li role="presentation"><a href="javascript:$('#contentDiv').load('${pageContext.request.contextPath}/jsp/carousel.jsp')">轮播图管理</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
+                </shiro:hasPermission>
+                <shiro:hasRole name="admin">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title" data-target="#collapse2" data-toggle="collapse" data-parent="#panelgroup1">
@@ -84,7 +88,7 @@
                             <div id="collapse2" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ul class="nav nav-pills nav-stacked">
-                                        <li role="presentation"><a href="javascript:$('#contentDiv').load('album.jsp')">专辑和章节管理</a></li>
+                                        <li role="presentation"><a href="javascript:$('#contentDiv').load('${pageContext.request.contextPath}/jsp/album.jsp')">专辑和章节管理</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -100,11 +104,13 @@
                         <div id="collapse3" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <ul class="nav nav-pills nav-stacked">
-                                    <li role="presentation"><a href="javascript:$('#contentDiv').load('article.jsp')">文章管理</a></li>
+                                    <li role="presentation"><a href="javascript:$('#contentDiv').load('${pageContext.request.contextPath}/jsp/article.jsp')">文章管理</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
+                </shiro:hasRole>
+                <shiro:hasRole name="vip">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title" data-target="#collapse4" data-toggle="collapse" data-parent="#panelgroup1">
@@ -114,11 +120,13 @@
                         <div id="collapse4" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <ul class="nav nav-pills nav-stacked">
-                                    <li role="presentation"><a href="javascript:$('#contentDiv').load('user.jsp')">用户管理</a></li>
+                                    <li role="presentation"><a href="javascript:$('#contentDiv').load('${pageContext.request.contextPath}/jsp/user.jsp')">用户管理</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
+
+                </shiro:hasRole>
                 </div>
             </div>
         <div class="col-lg-10" id="contentDiv" >

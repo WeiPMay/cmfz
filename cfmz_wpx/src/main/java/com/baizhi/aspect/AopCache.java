@@ -12,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
-@Configuration
-@Aspect
+/*@Configuration
+@Aspect*/
 public class AopCache {
-    @Autowired
+   /* @Autowired
     private StringRedisTemplate stringRedisTemplate;
     @Around("execution(* com.baizhi.service.*.query*(..))")
     public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
@@ -59,6 +59,6 @@ public class AopCache {
         System.out.println("清除当前namespace下所有缓存");
         String id = joinPoint.getTarget().getClass().getName();
         stringRedisTemplate.delete(id);
-    }
+    }*/
 
 }
