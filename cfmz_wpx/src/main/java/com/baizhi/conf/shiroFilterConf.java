@@ -23,6 +23,7 @@ public class shiroFilterConf {
         map.put("/**","authc");
         map.put("/admin/login","anon");
         map.put("/jsp/main.jsp","anon");
+        map.put("/webapp/*","anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         shiroFilterFactoryBean.setLoginUrl("/jsp/login.jsp");
         return shiroFilterFactoryBean;
